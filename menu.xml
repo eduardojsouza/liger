@@ -1,0 +1,47 @@
+<menu>
+    <menuitem label='Administração'>
+        <menu>
+              <menuitem label='Programas'>
+                  <icon>fa:file-code-o fa-fw green</icon>
+                  <action>SystemProgramList</action>
+              </menuitem>
+              <menuitem label='Grupos'>
+                  <icon>fa:users fa-fw blue</icon>
+                  <action>SystemGroupList</action>
+              </menuitem>
+              <menuitem label='Usuários'>
+                  <icon>fa:user fa-fw blue</icon>
+                  <action>SystemUserList</action>
+              </menuitem>
+        </menu>
+    </menuitem>
+    
+    <menuitem label='Cadastros'>
+        <menu>
+            <menuitem label='Cidade'>
+                <icon></icon>
+                <action>CidadeList</action>
+            </menuitem>
+            <menuitem label='Bairro'>
+                <icon></icon>
+                <action>BairroList</action>
+            </menuitem>
+            <menuitem label='Logradouro'>
+                <icon></icon>
+                <action>LogradouroList</action>
+            </menuitem>
+            <menuitem label='Imóvel'>
+                <icon></icon>
+                <action>CommonPage</action>
+            </menuitem>
+            <menuitem label='Contribuinte'>
+                <icon></icon>
+                <action>CommonPage</action>
+            </menuitem> 
+        </menu>
+    </menuitem>
+    
+    <menuitem label='Sair'>
+                  <action>LoginForm#method=onLogout#static=1</action>
+    </menuitem>
+</menu>
