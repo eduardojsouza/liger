@@ -36,7 +36,7 @@
             </menuitem>
             <menuitem label='Contribuinte'>
                 <icon></icon>
-                <action>CommonPage</action>
+                <action>ContribuinteList</action>
             </menuitem> 
         </menu>
     </menuitem>
