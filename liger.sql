@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 21-Ago-2015 às 21:29
+-- Generation Time: 31-Ago-2015 às 14:57
 -- Versão do servidor: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -91,7 +91,11 @@ INSERT INTO `system_program` (`id`, `name`, `controller`) VALUES
 (10, 'CidadeForm', 'CidadeForm'),
 (11, 'CidadeList', 'CidadeList'),
 (12, 'LogradouroForm', 'LogradouroForm'),
-(13, 'LogradouroList', 'LogradouroList');
+(13, 'LogradouroList', 'LogradouroList'),
+(14, 'ContribuinteForm', 'ContribuinteForm'),
+(15, 'ContribuinteList', 'ContribuinteList'),
+(16, 'ImovelList', 'ImovelList'),
+(17, 'ImovelForm', 'ImovelForm');
 
 -- --------------------------------------------------------
 
@@ -158,7 +162,11 @@ INSERT INTO `system_user_program` (`id`, `system_user_id`, `system_program_id`) 
 (4, 1, 10),
 (5, 1, 11),
 (6, 1, 12),
-(7, 1, 13);
+(7, 1, 13),
+(8, 1, 14),
+(9, 1, 15),
+(10, 1, 16),
+(11, 1, 17);
 
 -- --------------------------------------------------------
 
@@ -177,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `tb_bairros` (
 --
 
 INSERT INTO `tb_bairros` (`bairros_id`, `bairros_nome`, `tb_cidades_cid_id`) VALUES
-(1, 'Central', 1),
+(1, 'Central', 2),
 (2, 'Curumin', 1);
 
 -- --------------------------------------------------------
@@ -199,6 +207,43 @@ CREATE TABLE IF NOT EXISTS `tb_cidades` (
 INSERT INTO `tb_cidades` (`cid_id`, `cid_nome`, `tb_estados_uf_id`) VALUES
 (1, 'Ceres', 9),
 (2, 'Rubiataba', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_contribuinte`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_contribuinte` (
+  `contribuinte_id` int(11) NOT NULL,
+  `contribuinte_nome` varchar(200) NOT NULL,
+  `contribuinte_tipo` varchar(200) NOT NULL,
+  `contribuinte_endereco` varchar(200) NOT NULL,
+  `contribuinte_bairro` varchar(200) NOT NULL,
+  `contribuinte_cidade` varchar(200) NOT NULL,
+  `contribuinte_estado` varchar(200) NOT NULL,
+  `contribuinte_cep` int(8) NOT NULL,
+  `contribuinte_telefone` varchar(50) NOT NULL,
+  `contribuinte_cpf` int(11) DEFAULT NULL,
+  `contribuinte_dtnascimento` date DEFAULT NULL,
+  `contribuinte_rg` int(30) DEFAULT NULL,
+  `contribuinte_cnpj` int(50) DEFAULT NULL,
+  `contribuinte_inscricaoestadual` int(50) DEFAULT NULL,
+  `contribuinte_inscricaomunicipal` int(50) DEFAULT NULL,
+  `contribuinte_regjuceg` int(50) DEFAULT NULL,
+  `contribuinte_ramo` varchar(200) DEFAULT NULL,
+  `contribuinte_codatividade` int(50) DEFAULT NULL,
+  `contribuinte_numempregados` int(50) DEFAULT NULL,
+  `contribuinte_inicioatividades` date DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_contribuinte`
+--
+
+INSERT INTO `tb_contribuinte` (`contribuinte_id`, `contribuinte_nome`, `contribuinte_tipo`, `contribuinte_endereco`, `contribuinte_bairro`, `contribuinte_cidade`, `contribuinte_estado`, `contribuinte_cep`, `contribuinte_telefone`, `contribuinte_cpf`, `contribuinte_dtnascimento`, `contribuinte_rg`, `contribuinte_cnpj`, `contribuinte_inscricaoestadual`, `contribuinte_inscricaomunicipal`, `contribuinte_regjuceg`, `contribuinte_ramo`, `contribuinte_codatividade`, `contribuinte_numempregados`, `contribuinte_inicioatividades`) VALUES
+(1, 'Eduardo Souza', '1', 'Rua 36', 'Central', 'Ceres', '', 76300, '6284795790', 2147483647, '1990-03-06', 5375151, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'Teste', '2', 'Rua teste', 'teste', 'Ceres', '', 76300000, '999999999', NULL, '2010-02-02', NULL, 0, NULL, NULL, NULL, 'teste', 121222, 11, '2015-08-24');
 
 -- --------------------------------------------------------
 
@@ -285,7 +330,20 @@ CREATE TABLE IF NOT EXISTS `tb_imovel` (
   `testada` double NOT NULL,
   `areaedificada` double NOT NULL,
   `areatotaledificada` double NOT NULL,
-  `imgimovel` int(100) NOT NULL
+  `imgimovel` int(100) NOT NULL,
+  `logradouro` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_imovelproprietarios`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_imovelproprietarios` (
+  `id_imovel_proprietarios` int(20) NOT NULL,
+  `tb_imovel_imovel_id` int(20) NOT NULL,
+  `tb_contribuinte_contribuinte_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -391,6 +449,12 @@ ALTER TABLE `tb_cidades`
   ADD PRIMARY KEY (`cid_id`,`tb_estados_uf_id`), ADD KEY `fk_tb_cidades_tb_estados1_idx` (`tb_estados_uf_id`);
 
 --
+-- Indexes for table `tb_contribuinte`
+--
+ALTER TABLE `tb_contribuinte`
+  ADD PRIMARY KEY (`contribuinte_id`);
+
+--
 -- Indexes for table `tb_estados`
 --
 ALTER TABLE `tb_estados`
@@ -401,6 +465,12 @@ ALTER TABLE `tb_estados`
 --
 ALTER TABLE `tb_imovel`
   ADD PRIMARY KEY (`imovel_id`);
+
+--
+-- Indexes for table `tb_imovelproprietarios`
+--
+ALTER TABLE `tb_imovelproprietarios`
+  ADD PRIMARY KEY (`id_imovel_proprietarios`);
 
 --
 -- Indexes for table `tb_logradouros`
@@ -429,10 +499,20 @@ ALTER TABLE `tb_bairros`
 ALTER TABLE `tb_cidades`
   MODIFY `cid_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `tb_contribuinte`
+--
+ALTER TABLE `tb_contribuinte`
+  MODIFY `contribuinte_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `tb_estados`
 --
 ALTER TABLE `tb_estados`
   MODIFY `uf_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `tb_imovelproprietarios`
+--
+ALTER TABLE `tb_imovelproprietarios`
+  MODIFY `id_imovel_proprietarios` int(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tb_logradouros`
 --
