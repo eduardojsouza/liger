@@ -13,5 +13,18 @@
  * @author Eduardo
  */
 class ImovelProprietarios extends TRecord {
-    //put your code here
+    
+    const TABLENAME = 'tb_imovelproprietarios';
+    const PRIMARYKEY= 'id_imovel_proprietarios';
+    const IDPOLICY =  'max'; // {max, serial}
+    
+    /**
+     * Constructor method
+     */
+    public function __construct($id = NULL){
+        
+        parent::__construct($id);
+        parent::addAttribute('tb_imovel_imovel_id');
+        parent::addAttribute('tb_contribuinte_contribuinte_id');
+    }
 }

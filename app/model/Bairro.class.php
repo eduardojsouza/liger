@@ -12,4 +12,11 @@ class Bairro extends TRecord{
         parent::addAttribute('bairros_nome');
         parent::addAttribute('tb_cidades_cid_id');
     }
+    
+    public function get_nome_cidade(){
+        if(empty($this->cidade)){
+            $this->cidade = new Cidade($this->tb_cidades_cid_id);
+        }
+        return $this->cidade->cid_nome;
+    }
 }

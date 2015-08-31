@@ -71,7 +71,8 @@ class BairroList extends TPage{
         // creates the datagrid columns
         $bairros_id             = new TDataGridColumn('bairros_id', 'ID', 'right');
         $bairros_nome           = new TDataGridColumn('bairros_nome','Bairro', 'left');
-        $tb_cidades_cid_id   = new TDataGridColumn('tb_cidades_cid_id','Cidade', 'left'); 
+        $tb_cidades_cid_id   = new TDataGridColumn('tb_cidades_cid_id','Cidade', 'left');
+        $tb_cidades_cid_id   = new TDataGridColumn('nome_cidade','Cidade', 'left');
         
         // add the columns to the DataGrid
         $this->datagrid->addColumn($bairros_id);

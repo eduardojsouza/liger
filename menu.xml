@@ -32,7 +32,7 @@
             </menuitem>
             <menuitem label='Imóvel'>
                 <icon></icon>
-                <action>CommonPage</action>
+                <action>ImovelList</action>
             </menuitem>
             <menuitem label='Contribuinte'>
                 <icon></icon>

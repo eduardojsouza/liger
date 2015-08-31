@@ -71,7 +71,8 @@ class CidadeList extends TPage{
         // creates the datagrid columns
         $cid_id             = new TDataGridColumn('cid_id', 'ID', 'right');
         $cid_nome           = new TDataGridColumn('cid_nome','Cidade', 'left');
-        $tb_estados_uf_id   = new TDataGridColumn('tb_estados_uf_id','Estado', 'left'); 
+        $tb_estados_uf_id   = new TDataGridColumn('tb_estados_uf_id','Estado', 'left');
+        $tb_estados_uf_id   = new TDataGridColumn('uf_sigla','Estado', 'left');
         
         // add the columns to the DataGrid
         $this->datagrid->addColumn($cid_id);

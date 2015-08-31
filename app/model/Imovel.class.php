@@ -22,6 +22,7 @@ class Imovel extends TRecord {
         parent::__construct($id);
         
         parent::addAttribute('imovel_id');
+        parent::addAttribute('logradouro');
         parent::addAttribute('numero');
         parent::addAttribute('quadra');
         parent::addAttribute('lote');
@@ -53,5 +54,13 @@ class Imovel extends TRecord {
         parent::addAttribute('areaedificada');
         parent::addAttribute('areatotaledificada');
         parent::addAttribute('imgimovel');
+    }
+    
+    public function addProprietario(Contribuinte $object){
+        $this->proprietarios[] = $object;
+    }
+    
+    public function getProprietarios(){
+        return $this->proprietarios;
     }
 }

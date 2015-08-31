@@ -173,12 +173,9 @@ class LogradouroForm extends TPage
                 $this->form->clear();
             }
         }
-        catch (Exception $e) // in case of exception
-        {
-            // shows the exception error message
+        catch (Exception $e) {
             new TMessage('error', '<b>Error</b> ' . $e->getMessage());
             
-            // undo all pending operations
             TTransaction::rollback();
         }
     }
