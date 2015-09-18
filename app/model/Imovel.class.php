@@ -63,4 +63,55 @@ class Imovel extends TRecord {
     public function getProprietarios(){
         return $this->proprietarios;
     }
+    
+    public function clearParts(){
+        $this->proprietarios = array();
+    }
+    
+    public function load($id){
+
+        $repository = new TRepository('ImovelProprietarios');
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('tb_imovel_imovel_id', '=', $id));
+        $imovelproprietario = $repository->load($criteria);
+        if ($imovelproprietario){
+            foreach ($imovelproprietario as $imovelproprietarios){
+                $proprietario = new Contribuinte( $imovelproprietarios->tb_contribuinte_contribuinte_id );
+                $this->addProprietario($proprietario);
+            }
+        }
+        
+        return parent::load($id);
+    }
+        
+    public function store(){
+        
+        parent::store();
+    
+
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('tb_imovel_imovel_id', '=', $this->imovel_id));
+        $repository = new TRepository('ImovelProprietarios');
+        $repository->delete($criteria);
+
+        if ($this->proprietarios){
+            foreach ($this->proprietarios as $proprietario){
+                $imovelproprietarios = new ImovelProprietarios;
+                $imovelproprietarios->tb_contribuinte_contribuinte_id = $proprietario->proprietarios_id;
+                $imovelproprietarios->tb_imovel_imovel_id = $this->imovel_id;
+                $imovelproprietarios->store();
+            }
+        }
+    }
+    
+    public function delete($id = NULL){
+        $id = isset($id) ? $id : $this->imovel_id;
+        $repository = new TRepository('ImovelProprietarios');
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('tb_imovel_imovel_id', '=', $id));
+        $repository->delete($criteria);
+        
+        // delete the object itself
+        parent::delete($id);
+    }
 }

@@ -1,18 +1,11 @@
 <?php
-/**
- * System_groupForm Registration
- * @author  <your name here>
- */
-class LogradouroForm extends TPage
-{
-    protected $form; // form
+
+class LogradouroForm extends TPage{
     
-    /**
-     * Class constructor
-     * Creates the page and the registration form
-     */
-    function __construct()
-    {
+    protected $form;
+
+    function __construct(){
+        
         parent::__construct();
         
         // creates the table container
@@ -128,48 +121,31 @@ class LogradouroForm extends TPage
             $object->store(); // stores the object
             $this->form->setData($object); // fill the form with the active record data
             
-            TTransaction::close(); // close the transaction
-            new TMessage('info', _t('Record saved')); // shows the success message
-        }
-        catch (Exception $e) // in case of exception
-        {
-            // shows the exception error message
+            TTransaction::close();
+            new TMessage('info', _t('Record saved'));
+        } catch (Exception $e){
             new TMessage('error', '<b>Error</b> ' . $e->getMessage());
-            
-            // undo all pending operations
+           
             TTransaction::rollback();
         }
     }
-    
-    /**
-     * method onEdit()
-     * Executed whenever the user clicks at the edit button da datagrid
-     */
-    function onEdit($param)
-    {
-        try
-        {
-            if (isset($param['key']))
-            {
-                // get the parameter $key
+
+    function onEdit($param){
+        try{
+            if (isset($param['key'])){
+ 
                 $key=$param['key'];
                 
-                // open a transaction with database 'liger'
                 TTransaction::open('liger');
                 
-                // instantiates object System_group
                 $object = new Logradouro($key);
                 
                 $object->bairros = $object->getBairros();
-                
-                // fill the form with the active record data
+    
                 $this->form->setData($object);
                 
-                // close the transaction
                 TTransaction::close();
-            }
-            else
-            {
+            }else{
                 $this->form->clear();
             }
         }

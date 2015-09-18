@@ -52,7 +52,7 @@ class Logradouro extends TRecord {
     
 
         $criteria = new TCriteria;
-        $criteria->add(new TFilter('tb_logradouros_logra_id', '=', $this->id));
+        $criteria->add(new TFilter('tb_logradouros_logra_id', '=', $this->logra_id));
         $repository = new TRepository('LogradouroBairro');
         $repository->delete($criteria);
 
