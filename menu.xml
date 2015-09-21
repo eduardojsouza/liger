@@ -38,6 +38,10 @@
                 <icon></icon>
                 <action>ContribuinteList</action>
             </menuitem> 
+            <menuitem label='Ano Base'>
+                <icon></icon>
+                <action>AnoBaseList</action>
+            </menuitem> 
         </menu>
     </menuitem>
     
