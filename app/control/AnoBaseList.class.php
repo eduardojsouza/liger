@@ -76,12 +76,12 @@ class AnoBaseList extends TPage{
         $action1 = new TDataGridAction(array('AnoBaseForm', 'onEdit'));
         $action1->setLabel(_t('Edit'));
         $action1->setImage('ico_edit.png');
-        $action1->setField('bairros_id');
+        $action1->setField('anobase_id');
         
         $action2 = new TDataGridAction(array($this, 'onDelete'));
         $action2->setLabel(_t('Delete'));
         $action2->setImage('ico_delete.png');
-        $action2->setField('bairros_id');
+        $action2->setField('anobase_id');
 
         $this->datagrid->addAction($action1);
         $this->datagrid->addAction($action2);

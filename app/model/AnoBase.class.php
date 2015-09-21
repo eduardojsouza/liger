@@ -1,6 +1,6 @@
 <?php
 
-    class AnoBase extends TRecod{
+    class AnoBase extends TRecord{
         
         const TABLENAME     = 'tb_anobase'; 
         const PRIMARYKEY    = 'anobase_id';

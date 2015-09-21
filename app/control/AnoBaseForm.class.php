@@ -11,7 +11,7 @@
  *
  * @author eduardo
  */
-class AnoBaseForm extends TSTandardForm{
+class AnoBaseForm extends TStandardForm{
     
     protected $form;
     
@@ -30,8 +30,9 @@ class AnoBaseForm extends TSTandardForm{
         
         // create the form fields
         $anobase_id            = new TEntry('anobase_id');
-        $anobase_data          = new TDate('anobase_data');
+        $anobase_data          = new TEntry('anobase_data');
         
+        $anobase_data->setMask('9999');
         $anobase_id->setEditable(false);
         
         $this->form->addQuickField('ID: ', $anobase_id,  50);
