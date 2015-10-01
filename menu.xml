@@ -42,6 +42,10 @@
                 <icon></icon>
                 <action>AnoBaseList</action>
             </menuitem> 
+            <menuitem label='Planta de Valores'>
+                <icon></icon>
+                <action>PlantaValoresList</action>
+            </menuitem> 
         </menu>
     </menuitem>
     

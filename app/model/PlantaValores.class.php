@@ -1,6 +1,6 @@
 <?php
 
-    class PlantaValores extends TRecod{
+    class PlantaValores extends TRecord{
      
         const TABLENAME     = 'tb_plantavalores'; 
         const PRIMARYKEY    = 'plantavalores_id';
@@ -9,6 +9,7 @@
         public function __construct($id = null) {
             parent::__construct($id);
         
+            parent::addAttribute('anobase');
             parent::addAttribute('plantavalores_valorm2territorial');
             parent::addAttribute('plantavalores_valorm2predial');
             parent::addAttribute('plantavalores_aliquotaterritorial1');

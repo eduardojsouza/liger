@@ -1,6 +1,6 @@
 <?php
 
-class AnoBaseList extends TPage{
+class PlantaValoresList extends TPage{
     
     private $form;     
     private $datagrid;
@@ -11,24 +11,24 @@ class AnoBaseList extends TPage{
         
         parent::__construct();
 
-        $this->form = new TForm('form_search_AnoBase');
+        $this->form = new TForm('form_search_PlantaValores');
         $this->form->class = 'tform';
         
         $table = new TTable;
         $table->style = 'width:100%';
         
-        $table->addRowSet( new TLabel('Ano Base'), '' )->class = 'tformtitle';
+        $table->addRowSet( new TLabel('Planta de Valores'), '' )->class = 'tformtitle';
 
         $this->form->add($table);
         
-        $anobase_id = new TEntry('anobase_id');
-        $anobase_id->setValue(TSession::getValue('anobase_id'));
+        $plantavalores_id = new TEntry('plantavalores_id');
+        $plantavalores_id->setValue(TSession::getValue('plantavalores_id'));
         
-        $anobase_data = new TEntry('anobase_data');
-        $anobase_data->setValue(TSession::getValue('anobase_data'));
+        $anobase = new TEntry('anobase');
+        $anobase->setValue(TSession::getValue('anobase'));
         
-        $row=$table->addRowSet(new TLabel('ID: '),$anobase_id);
-        $row=$table->addRowSet(new TLabel('Ano Base: '), $anobase_data);
+        $row=$table->addRowSet(new TLabel('ID: '),$plantavalores_id);
+        $row=$table->addRowSet(new TLabel('Ano Base: '), $anobase);
 
         $find_button = new TButton('find');
         $new_button  = new TButton('new');
@@ -37,10 +37,10 @@ class AnoBaseList extends TPage{
         $find_button->setAction(new TAction(array($this, 'onSearch')), _t('Find'));
         $find_button->setImage('ico_find.png');
         
-        $new_button->setAction(new TAction(array('AnoBaseForm', 'onEdit')), _t('New'));
+        $new_button->setAction(new TAction(array('PlantaValoresForm', 'onEdit')), _t('New'));
         $new_button->setImage('ico_new.png');
         
-        $this->form->setFields(array($anobase_id, $anobase_data, $find_button, $new_button));
+        $this->form->setFields(array($plantavalores_id, $anobase, $find_button, $new_button));
 
         $container = new THBox;
         $container->add($find_button);
@@ -55,25 +55,21 @@ class AnoBaseList extends TPage{
         $this->datagrid->style = 'width: 100%';
         $this->datagrid->setHeight(320);
         
-        $anobase_id             = new TDataGridColumn('anobase_id', 'ID', 'right');
-        $anobase_data           = new TDataGridColumn('anobase_data','Ano Base', 'left');
+        $plantavalores_id             = new TDataGridColumn('plantavalores_id', 'ID', 'right');
+        $anobase                      = new TDataGridColumn('anobase','Ano Base', 'left');
         
-        $this->datagrid->addColumn($anobase_id);
-        $this->datagrid->addColumn($anobase_data);
+        $this->datagrid->addColumn($plantavalores_id);
+        $this->datagrid->addColumn($anobase);
 
         $order_id= new TAction(array($this, 'onReload'));
-        $order_id->setParameter('order', 'anobase_id');
-        $anobase_id->setAction($order_id);
+        $order_id->setParameter('order', 'plantavalores_id');
+        $plantavalores_id->setAction($order_id);
 
         $order_data= new TAction(array($this, 'onReload'));
-        $order_data->setParameter('order', 'anobase_data');
-        $anobase_data->setAction($order_data);
+        $order_data->setParameter('order', 'anobase');
+        $anobase->setAction($order_data);
 
-        $data_edit = new TDataGridAction(array($this, 'onInlineEdit'));
-        $data_edit->setField('anobase_id');
-        $anobase_data->setEditAction($data_edit);
-
-        $action1 = new TDataGridAction(array('AnoBaseForm', 'onEdit'));
+        $action1 = new TDataGridAction(array('PlantaValoresForm', 'onEdit'));
         $action1->setLabel(_t('Edit'));
         $action1->setImage('ico_edit.png');
         $action1->setField('anobase_id');
@@ -81,7 +77,7 @@ class AnoBaseList extends TPage{
         $action2 = new TDataGridAction(array($this, 'onDelete'));
         $action2->setLabel(_t('Delete'));
         $action2->setImage('ico_delete.png');
-        $action2->setField('anobase_id');
+        $action2->setField('plantavalores_id');
 
         $this->datagrid->addAction($action1);
         $this->datagrid->addAction($action2);
@@ -110,7 +106,7 @@ class AnoBaseList extends TPage{
 
             TTransaction::open('liger');
             
-            $object = new AnoBase($key);
+            $object = new PlantaValores($key);
             $object->{$field} = $value;
             $object->store();
             
@@ -130,14 +126,14 @@ class AnoBaseList extends TPage{
 
         $data = $this->form->getData();
         
-        TSession::setValue('Anobase_id_filter',   NULL);
-        TSession::setValue('Anobase_id', '');
+        TSession::setValue('Plantavalores_id_filter',   NULL);
+        TSession::setValue('Plantavalores_id', '');
         
-        if ( $data->anobase_id ){
-            $filter = new TFilter('anobase_id', 'like', "%{$data->anobase_id}%");
+        if ( $data->plantavalores_id ){
+            $filter = new TFilter('plantavalores_id', 'like', "%{$data->plantavalores_id}%");
             
-            TSession::setValue('Anobase_id_filter',   $filter);
-            TSession::setValue('Anobase_id', $data->anobase_id);            
+            TSession::setValue('Plantavalores_id_filter',   $filter);
+            TSession::setValue('Plantavalores_id', $data->plantavalores_id);            
         }
         
         $this->form->setData($data);
@@ -154,14 +150,14 @@ class AnoBaseList extends TPage{
            
             TTransaction::open('liger');
             
-            $repository = new TRepository('AnoBase');
+            $repository = new TRepository('PlantaValores');
             $limit = 10;
             
             $criteria = new TCriteria;
             
-            if (TSession::getValue('Anobase_id_filter')) {
+            if (TSession::getValue('Plantavalores_id')) {
                 
-                $criteria->add(TSession::getValue('Anobase_id_filter'));
+                $criteria->add(TSession::getValue('Plantavalores_id_filter'));
             }
             
             $objects = $repository->load($criteria);
@@ -219,7 +215,7 @@ class AnoBaseList extends TPage{
             TTransaction::open('liger');
             
             // instantiates object SystemProgram
-            $object = new AnoBase ($key);
+            $object = new PlantaValores ($key);
             
             // deletes the object from the database
             $object->delete();

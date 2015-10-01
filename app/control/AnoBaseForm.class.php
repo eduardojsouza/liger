@@ -44,7 +44,7 @@ class AnoBaseForm extends TStandardForm{
 
         $container = new TTable;
         $container->style = 'width: 80%';
-        $container->addRow()->addCell(new TXMLBreadCrumb('menu.xml','BairroList'));
+        $container->addRow()->addCell(new TXMLBreadCrumb('menu.xml','AnoBaseList'));
         $container->addRow()->addCell($this->form);
         
         parent::add($container);
